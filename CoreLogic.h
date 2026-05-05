@@ -9,4 +9,7 @@ struct Student{
 	double average;
 };
 
+void createRecords();
 void viewRecords();
+void updateRecords();
+void deleteRecords();
