@@ -1,15 +1,14 @@
 #pragma once
 
-struct Student{
-	std::string name;
+struct Student {
+	std::string surname;
+	std::string first_name;
 	std::string course;
 	double prelim;
 	double midterm;
 	double finals;
-	double average;
 };
 
 void createRecords();
-void viewRecords();
 void updateRecords();
 void deleteRecords();
