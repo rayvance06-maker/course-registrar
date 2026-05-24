@@ -1,12 +1,17 @@
 #pragma once
 
 struct Student {
-	std::string surname;
+	int id;
+	std::string last_name;
 	std::string first_name;
-	std::string course;
+	std::string program;
 	double prelim;
 	double midterm;
 	double finals;
+
+	double getAverage() const {
+		return (prelim + midterm + finals) / 3.0;
+	}
 };
 
 void createRecords();

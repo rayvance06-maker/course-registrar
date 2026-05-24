@@ -4,6 +4,7 @@
 #include <limits>
 #include "CoreLogic.h"
 
+int nextId = 1000;
 std::vector<Student> roster;
 const std::string FILENAME = "students.txt";
 
@@ -13,58 +14,57 @@ void clearInput() {
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+double getGrade(const std::string& prompt) {
+	double grade;
+
+	while (true) {
+		std::cout << prompt;
+		if (std::cin >> grade && grade >= 1.0 && grade <= 5.0) {
+			return grade;
+		}
+
+		std::cout << "Invalid input. Enter grade (1.0 - 5.0).\n";
+		clearInput();
+	}
+}
+
 void createRecord() {
 	Student s;
-	//Prompts for the user's surname
-	std::cout << "Enter your surname: ";
-	std::getline(std::cin >> std::ws, s.surname);
+	s.id = nextId++;
 
-	//Prompts for the user's first name
-	std::cout << "Enter your first name: ";
-	std::getline(std::cin >> std::ws, s.first_name);
+	std::cout << "Please enter the following:\n";
+	std::cout << "Surname: ";
+	std::getline(std::cin, s.last_name);
 
-	//Prompts for the user's course
-	std::cout << "Enter your course: ";
-	std::getline(std::cin >> std::ws, s.course);
+	std::cout << "\nFirst name: ";
+	std::getline(std::cin, s.first_name);
 
-	//Prompts for the user's prelim grade
-	std::cout << "Enter prelim grade: ";
-	while (!(std::cin >> s.prelim) || s.prelim < 1.0 || s.prelim > 5.0) {
-		std::cout << "Invalid input. Enter your grade(1.0-5.0): ";
-		clearInput();
-	}
+	std::cout << "\nProgram: ";
+	std::getline(std::cin, s.program);
 
-	//Prompts for the user's midterm grade
-	std::cout << "Enter prelim grade: ";
-	while (!(std::cin >> s.midterm) || s.midterm < 1.0 || s.midterm > 5.0) {
-		std::cout << "Invalid input. Enter your grade(1.0-5.0): ";
-		clearInput();
-	}
-	
-	//Prompts for the user's finals grade
-	std::cout << "Enter prelim grade: ";
-	while (!(std::cin >> s.finals) || s.finals < 1.0 || s.finals > 5.0) {
-		std::cout << "Invalid input. Enter your grade(1.0-5.0): ";
-		clearInput();
-	}
+	s.prelim = getGrade("\nPrelim grade: ");
+	s.midterm = getGrade("\nMidterm grade: ");
+	s.finals = getGrade("\nFinals grade: ");
+
 	roster.push_back(s);
 
-	std::cout << "Record added successfully" << '\n';
+	std::cout << "Record added successfully\n";
 }
+
 void updateRecord() {
-	std::string surname;
+	std::string last_name;
 	Student s;
 
 	std::cout << "Enter surname to update: ";
-	while (!(std::cin >> surname)) {
+	while (!(std::cin >> last_name)) {
 		std::cout << "Invalid input, try again: ";
 		clearInput();
 	}
 	for (auto& s : roster) {
-		if (s.surname == surname) {
+		if (s.last_name == last_name) {
 			clearInput();
 			std::cout << "Enter new surname: ";
-			std::getline(std::cin, s.surname);
+			std::getline(std::cin, s.last_name);
 
 			std::cout << "Enter new first name: ";
 			std::getline(std::cin, s.first_name);
@@ -93,5 +93,16 @@ void updateRecord() {
 	}
 }
 void deleteRecord() {
+	std::string last_name;
+	std::cout << "Enter surname to delete: ";
+	std::getline(std::cin >> std::ws, last_name);
 
+	for (auto it = roster.begin(); it != roster.end(); ++it) {
+		if (it->last_name == last_name) {
+			roster.erase(it);
+			std::cout << "Record removed.\n";
+			return;
+		}
+	}
+	std::cout << "Record not found.\n";
 }
