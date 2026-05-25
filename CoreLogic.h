@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
 struct Student {
 	int id;
 	std::string last_name;
@@ -23,6 +26,10 @@ std::string sanitizeName(std::string name);
 std::string sanitizeProgram(std::string program);
 bool isValidProgram(const std::string& program);
 std::string formatFullName(const Student& s);
-void createRecords();
-void updateRecords();
-void deleteRecords();
+void createRecord();
+void updateRecord();
+void deleteRecord();
+
+extern int nextId;
+extern std::vector<Student> roster;
+extern std::string FILENAME;
