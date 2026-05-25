@@ -25,7 +25,6 @@ void loadState() {
         std::string s_midterm;
         std::string s_finals;
 
-        // read fields
         std::getline(ss, s_id, '|');
         std::getline(ss, s_last_name, '|');
         std::getline(ss, s_first_name, '|');
@@ -46,7 +45,6 @@ void loadState() {
             s.midterm = std::stod(s_midterm);
             s.finals = std::stod(s_finals);
 
-            // update nextId safely
             if (s.id >= nextId) {
                 nextId = s.id + 1;
             }
@@ -54,10 +52,9 @@ void loadState() {
             roster.push_back(s);
         }
         catch (...) {
-            continue; // skip corrupted lines
+            continue;
         }
     }
-
     file.close();
 }
 

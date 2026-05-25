@@ -1,81 +1,71 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <cctype>
-#include <sstream>
-#include <iomanip>
 #include "CoreLogic.h"
 #include "FileHandler.h"
 
-void viewStudentRecord() {
-    ifstream inFile("registrar.txt");
-    if (!inFile) {
-        cout << "\nNo records found. The database file does not exist yet.\n";
-        return;
-    }
-
-    string searchName;
-    cout << "\n--- View Student Record ---\n";
-    cout << "Enter Student Name to search: ";
-    getline(cin, searchName);
-    searchName = formatName(searchName);
-
-    string line;
-    bool found = false;
-
-        while (getline(inFile, line)) {
-        stringstream ss(line);
-        string name, course, gradeStr;
-
-        if (getline(ss, name, '|') && getline(ss, course, '|') && getline(ss, gradeStr, '|')) {
-            if (name == searchName) {
-                cout << "\nRecord Found in Stored Data:\n";
-                cout << "-----------------------\n";
-                cout << "Name:   " << name << "\n";
-                cout << "Course: " << course << "\n";
-                cout << "Grade:  " << gradeStr << "\n";
-                cout << "-----------------------\n";
-                found = true;
-                break; 
-            }
-        }
-    }
-    inFile.close();
-
-    if (!found) {
-        cout << "\nStudent \"" << searchName << "\" not found in the stored data.\n";
-    }
+void showMenu() {
+    std::cout << "\n===== STUDENT REGISTRAR SYSTEM =====\n";
+    std::cout << "1. Create Record\n";
+    std::cout << "2. Update Record\n";
+    std::cout << "3. Delete Record\n";
+    std::cout << "4. View All Records\n";
+    std::cout << "5. Sort by Term\n";
+    std::cout << "6. View Class Averages\n";
+    std::cout << "7. Save Data\n";
+    std::cout << "8. Exit\n";
+    std::cout << "Choice: ";
 }
 
 int main() {
+    loadState();
+
     int choice;
 
-    while (true) {
-        cout << "\n==============================\n";
-        cout << "   COURSE REGISTRAR SYSTEM    \n";
-        cout << "==============================\n";
-        cout << "1. Create Student Record\n";
-        cout << "2. View Student Record\n";
-        cout << "3. Exit\n";
-        cout << "Enter your choice (1-3): ";
-        
-        if (!(cin >> choice)) {
-            cout << "\nInvalid selection type. Exiting.\n";
-            break;
-        }
-        cin.ignore(); 
+    do {
+        showMenu();
+        std::cin >> choice;
 
-        if (choice == 1) {
-            createStudentRecord();
-        } else if (choice == 2) {
-            viewStudentRecord();
-        } else if (choice == 3) {
-            cout << "\nExiting system. Goodbye!\n";
+        switch (choice) {
+        case 1:
+            createRecord();
             break;
-        } else {
-            cout << "\nInvalid choice! Please select 1, 2, or 3.\n";
+        case 2:
+            updateRecord();
+            break;
+        case 3:
+            deleteRecord();
+            break;
+        case 4:
+            for (const auto& s : roster) {
+                std::cout << s.id << " | "
+                          << s.last_name << ", "
+                          << s.first_name << " | "
+                          << s.program << " | "
+                          << s.getAverage()
+                          << "\n";
+            }
+            break;
+        case 5: {
+            int term;
+            std::cout << "Enter term (1=Prelim, 2=Midterm, 3=Finals, 4=Average): ";
+            std::cin >> term;
+            sortByTerm(roster, term);
+            std::cout << "Sorted successfully.\n";
+            break;
         }
-    }
+        case 6:
+            viewClassAverages(roster);
+            break;
+        case 7:
+            saveState();
+            break;
+        case 8:
+            saveState();
+            std::cout << "Exiting program...\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+        }
+    } while (choice != 8);
 
     return 0;
 }

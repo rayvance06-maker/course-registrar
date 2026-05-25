@@ -32,4 +32,4 @@ void deleteRecord();
 
 extern int nextId;
 extern std::vector<Student> roster;
-extern std::string FILENAME;
+extern const std::string FILENAME;

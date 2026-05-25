@@ -7,7 +7,7 @@
 
 int nextId = 1000;
 std::vector<Student> roster;
-const std::string FILENAME = "students.txt";
+const std::string FILENAME = "data/students.txt";
 
 void clearInput() {
 	std::cin.clear();
@@ -28,7 +28,7 @@ double getGrade(const std::string& prompt) {
 	}
 }
 
-bool duplicateNameExists(const std::string& first, const std::string& last, int currentId = -1) {
+bool duplicateNameExists(const std::string& first, const std::string& last, int currentId) {
     for (const auto& student : roster) {
         if (student.id != currentId &&
             student.first_name == first &&
@@ -54,7 +54,7 @@ void viewClassAverages(const std::vector<Student>& roster) {
     }
     int n = roster.size();
 
-    std::cout << "Prelim: " << p / n << std::endl;
+    std::cout << "\nPrelim: " << p / n << std::endl;
     std::cout << "Midterm: " << m / n << std::endl;
     std::cout << "Finals: " << f / n << std::endl;
     std::cout << "Overall: " << o / n << std::endl;
@@ -122,11 +122,9 @@ std::string sanitizeName(std::string name) {
             lastWasSpace = false;
         }
     }
-
     if (!result.empty() && result.back() == ' ') {
         result.pop_back();
     }
-
     if (result.length() > 25) {
         result = result.substr(0, 25);
     }
@@ -171,11 +169,14 @@ std::string formatFullName(const Student& s) {
 void createRecord() {
 	Student s; 
 	s.id = nextId++;
+
+	clearInput();
+
 	while (true) {
 		std::cout << "Enter last name: ";
 		std::getline(std::cin, s.last_name);
 
-		std::cout << "\nEnter first name: ";
+		std::cout << "Enter first name: ";
 		std::getline(std::cin, s.first_name);
 
 		s.first_name = sanitizeName(s.first_name);
@@ -184,11 +185,11 @@ void createRecord() {
 		if (!duplicateNameExists(s.first_name, s.last_name)) {
 			break;
 		}
-		std::cout << "\nDuplicate name detected. Please enter other name.";
+		std::cout << "Duplicate name detected. Please enter other name.\n";
 	}
 
 	while (true) { 
-		std::cout << "\nProgram (e.g BSCS): ";
+		std::cout << "Program (e.g BSCS): ";
 		std::getline(std::cin, s.program);
 
 		s.program = sanitizeProgram(s.program);
@@ -199,9 +200,9 @@ void createRecord() {
 		std::cout << "Invalid program. Try again.\n";  
 	}
 
-	s.prelim = getGrade("\nPrelim grade: ");
-	s.midterm = getGrade("\nMidterm grade: ");
-	s.finals = getGrade("\nFinals grade: ");
+	s.prelim = getGrade("Prelim grade: ");
+	s.midterm = getGrade("Midterm grade: ");
+	s.finals = getGrade("Finals grade: ");
 
 	roster.push_back(s);
 
@@ -225,7 +226,7 @@ void updateRecord() {
 			std::cout << "Program: " << s.program << "\n";
 
 			while (true) {
-				std::cout << "Enter new last name: ";
+				std::cout << "\nEnter new last name: ";
 				std::getline(std::cin, s.last_name);
 
 				std::cout << "Enter new first name: ";
@@ -240,7 +241,7 @@ void updateRecord() {
 				std::cout << "\nDuplicate name detected. Please enter other name.";
 		}
 
-			std::cout << "\nEnter new program (e.g BSCS): ";
+			std::cout << "Enter new program (e.g BSCS): ";
 			std::getline(std::cin, s.program);
 
 			s.program = sanitizeProgram(s.program);
@@ -251,9 +252,9 @@ void updateRecord() {
 				s.program = sanitizeProgram(s.program);
 			}
 
-			s.prelim = getGrade("\nEnter new prelim grade: ");
-			s.midterm = getGrade("\nUpdated midterm grade: ");
-			s.finals = getGrade("\nUpdated finals grade: ");
+			s.prelim = getGrade("Enter new prelim grade: ");
+			s.midterm = getGrade("Enter midterm grade: ");
+			s.finals = getGrade("Enter finals grade: ");
 				
 			std::cout << "Record updated.\n";
 			return;
