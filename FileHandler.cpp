@@ -1,3 +1,6 @@
+#include <iostream>
+#include <fstream>
+
 void loadState() {
     std::ifstream file(FILENAME);
     if (!file) return;

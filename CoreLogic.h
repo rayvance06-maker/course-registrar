@@ -14,6 +14,15 @@ struct Student {
 	}
 };
 
+void clearInput();
+double getGrade(const std::string& prompt);
+bool duplicateNameExists(const std::string& first, const std::string& last, int currentId = -1);
+void viewClassAverages(const std::vector<Student>& roster);
+void sortByTerm(std::vector<Student>& roster, int term);
+std::string sanitizeName(std::string name);
+std::string sanitizeProgram(std::string program);
+bool isValidProgram(const std::string& program);
+std::string formatFullName(const Student& s);
 void createRecords();
 void updateRecords();
 void deleteRecords();
