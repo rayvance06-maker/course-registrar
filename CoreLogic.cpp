@@ -28,16 +28,34 @@ double getGrade(const std::string& prompt) {
 	}
 }
 
+bool duplicateNameExists(const std::string& first,
+	const std::string& last) {
+
+	for (const auto& student : roster) {
+		if (student.first_name == first &&
+			student.last_name == last) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void createRecord() {
 	Student s; 
 	s.id = nextId++;
+	while (true) {
+		std::cout << "Enter last name: ";
+		std::getline(std::cin, s.last_name);
 
-	std::cout << "Please enter the following:\n";
-	std::cout << "Surname: ";
-	std::getline(std::cin, s.last_name);
+		std::cout << "\nEnter first name: ";
+		std::getline(std::cin, s.first_name);
 
-	std::cout << "\nFirst name: ";
-	std::getline(std::cin, s.first_name);
+		if (!duplicateNameExists(s.first_name, s.last_name)) {
+			break;
+		}
+		std::cout << "\nDuplicate name detected. Please enter other name.";
+	}
 
 	std::cout << "\nProgram: ";
 	std::getline(std::cin, s.program);
