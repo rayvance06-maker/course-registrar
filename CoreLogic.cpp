@@ -29,7 +29,7 @@ double getGrade(const std::string& prompt) {
 }
 
 void createRecord() {
-	Student s;
+	Student s; 
 	s.id = nextId++;
 
 	std::cout << "Please enter the following:\n";
@@ -52,53 +52,45 @@ void createRecord() {
 }
 
 void updateRecord() {
-	std::string last_name;
-	Student s;
+	int id;
 
-	std::cout << "Enter surname to update: ";
-	while (!(std::cin >> last_name)) {
-		std::cout << "Invalid input, try again: ";
+	std::cout << "Enter ID to update: ";
+	while (!(std::cin >> id) || id < 1000) {
+		std::cout << "Invalid input, Enter number > 1000: ";
 		clearInput();
 	}
+
+	clearInput();
 	for (auto& s : roster) {
-		if (s.last_name == last_name) {
-			clearInput();
-			std::cout << "Enter new surname: ";
+		if (s.id == id) {
+			std::cout << "Enter new last name: ";
 			std::getline(std::cin, s.last_name);
 
-			std::cout << "Enter new first name: ";
+			std::cout << "\nEnter new first name: ";
 			std::getline(std::cin, s.first_name);
 
-			std::cout << "Enter new prelim grade: ";
-			while (!(std::cin >> s.prelim) || s.prelim < 1.0 || s.prelim > 5.0) {
-				std::cout << "Invalid input, try again: ";
-				clearInput();
-			}
-
-			std::cout << "Enter new midterm grade: ";
-			while (!(std::cin >> s.midterm) || s.midterm < 1.0 || s.midterm > 5.0) {
-				std::cout << "Invalid input, try again: ";
-				clearInput();
-			}
-
-			std::cout << "Enter new prelim grade: ";
-			while (!(std::cin >> s.finals) || s.finals < 1.0 || s.finals > 5.0) {
-				std::cout << "Invalid input, try again: ";
-				clearInput();
-			}
+			s.prelim = getGrade("\nEnter new prelim grade: ");
+			s.midterm = getGrade("\nUpdated midterm grade: ");
+			s.finals = getGrade("\nUpdated finals grade: ");
+				
 			std::cout << "Record updated.\n";
 			return;
 		}
-		std::cout << "Surname not found.\n";
 	}
+	std::cout << "ID not found.\n";
 }
+
 void deleteRecord() {
-	std::string last_name;
-	std::cout << "Enter surname to delete: ";
-	std::getline(std::cin >> std::ws, last_name);
+	int id;
+
+	std::cout << "Enter ID to delete: ";
+	while (!(std::cin >> id) || id < 1000) {
+		std::cout << "Invalid input, Enter number > 1000: ";
+		clearInput();
+	}
 
 	for (auto it = roster.begin(); it != roster.end(); ++it) {
-		if (it->last_name == last_name) {
+		if (it->id == id) {
 			roster.erase(it);
 			std::cout << "Record removed.\n";
 			return;
