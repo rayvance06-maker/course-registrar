@@ -63,27 +63,29 @@ void viewClassAverages(const std::vector<Student>& roster) {
 void sortByTerm(std::vector<Student>& roster, int term) {
     int n = roster.size();
 
-    for(int i = 0; i < n - 1; i++) {
-        int maxIndex = i;
-        for(int j = i + 1; j < n; j++) {
-            bool higher = false;
-            if (term == 1) {
-                higher = roster[j].prelim > roster[maxIndex].prelim;
-			} else if (term == 2) {
-                higher = roster[j].midterm > roster[maxIndex].midterm;
-			} else if (term == 3) {
-                higher = roster[j].finals > roster[maxIndex].finals;
-			} else {
-                higher = roster[j].getAverage() > roster[maxIndex].getAverage();
-			}
+    for (int i = 0; i < n - 1; i++) {
+        int bestIndex = i;
 
-            if (higher) {
-                maxIndex = j;
+        for (int j = i + 1; j < n; j++) {
+            bool better = false;
+
+            if (term == 1) {
+                better = roster[j].prelim < roster[bestIndex].prelim;
+            } else if (term == 2) {
+                better = roster[j].midterm < roster[bestIndex].midterm;
+            } else if (term == 3) {
+                better = roster[j].finals < roster[bestIndex].finals;
+            } else {
+                better = roster[j].getAverage() < roster[bestIndex].getAverage();
+            }
+			
+            if (better) {
+                bestIndex = j;
             }
         }
         Student temp = roster[i];
-        roster[i] = roster[maxIndex];
-        roster[maxIndex] = temp;
+        roster[i] = roster[bestIndex];
+        roster[bestIndex] = temp;
     }
 }
 
@@ -159,7 +161,22 @@ bool isValidProgram(const std::string& program) {
            program == "BSTM" ||
 		   program == "BSPSY" ||
 		   program == "BSED" ||
-		   program == "BSE" ;
+		   program == "BSA" ||
+		   program == "BSIT" ||
+		   program == "BEED" ||
+		   program == "BSN" ||
+		   program == "BSCE" ||
+		   program == "BSEE" ||
+		   program == "BSME" ||
+		   program == "BSIE" ||
+		   program == "BSMT" ||
+		   program == "BSCRIM" ||
+		   program == "BSB" ||
+		   program == "ACT" ||
+		   program == "BSENTREP" ||
+		   program == "BSHRM" ||
+		   program == "BSECE"||
+		   program == "BSCPE";
 }
 
 std::string formatFullName(const Student& s) {

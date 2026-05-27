@@ -1,20 +1,20 @@
-juliannacelestino,act,1.2,1.4,1.0
-timothytamayo,bscs,1.2,1.3,1.0
-vancegonzaga,bscs,1.2,1.3,1.0
-jhasminecasas,bscs,1.3,1.0,1.0
-gabcalades,bscs,1.7,1.8,2.0
-davesamson,bscs,1.2,1.0,1.0
-randybaco,bscs,1.0,1.0,1.0
-zafjabez,bscs,1.8,1.4,1.2
-nicotena,bscs,1.9,1.5,1.2
-drenztabio,bscs,1.3,1.2,1.0
-kccampita,bscs,1.7,1.6,1.5
-johnjed,bscs,1.9,1.8,1.7
-peter,bscs,1.2,1.2,1.0
-justinetaroi,bscs,1.3,1.2,1.0
-Enrique,bscs,1.4,1.5,1.2
-Tiongson,bscs,2.1,1.4,1.2
-alexgonzaga,bscs,1.0,1.0,1.0
-princess,tm,1.7,1.6,1.5
-arvindeguzman,educ,1.7,1.6,1.5
-samconcepcion,hm,1.0,1.0,1.2
+1000|Tamayo|Timothy James|BSCPE|1.3123|1.565|1.76
+1001|Celestino|Julianna|ACT|1.15|1.37|1.29
+1002|Gonzaga|Ray Vance|BSCS|2.18|2.06|2.31
+1003|Salon|Alexa|BSN|1.54|1.22|1.08
+1004|Zafra|Jabez|BSED|2.03|1.89|1.77
+1005|Casas|Jhasmine|BSIT|1.11|1.28|1.19
+1006|Samson|Dave|BSCS|2.62|2.44|2.31
+1007|Kampita|Kathleen|BSA|1.73|1.61|1.48
+1008|Tena|Nicole|BSBA|2.27|2.09|1.95
+1009|Vicente|Peter Adrian|BSIT|1.06|1.18|1.09
+1010|Baco|Randy|BSED|1.49|1.53|1.36
+1011|Calades|Gabriel Jan|BSCS|2.08|2.21|1.97
+1012|Vergara|Enrique|BSIT|1.81|1.66|1.58
+1013|Taroy|Justine|BSBA|2.79|2.58|2.36
+1014|Farinas|John Jed|BSA|1.23|1.07|1.19
+1015|Tabio|Drenz|BSCS|2.14|1.92|2.05
+1016|Tiongson|Rammne|BSED|1.57|1.33|1.41
+1017|Cruz|Ruby|BSIT|2.33|2.17|2.08
+1018|Somo|Apasra|BSBA|1.76|1.49|1.62
+1019|Quinain|Jhunrey|BSA|2.05|1.88|1.73
